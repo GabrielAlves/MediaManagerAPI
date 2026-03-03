@@ -1,12 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .config import Config
 
 db = SQLAlchemy()
 
-def create_app():
+def create_app(test_config = None):
     app = Flask(__name__)
-    app.config.from_object(Config)
+
+    if test_config:
+        app.config.update(test_config)
+
+    else:
+        from .config import Config
+        app.config.from_object(Config)
 
     from . import routes
     app.register_blueprint(routes.bp)
