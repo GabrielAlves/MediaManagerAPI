@@ -12,6 +12,15 @@
 - Modo alternativo de armazenamento local
 - Testes unitários
 
+## Tecnologias Utilizadas
+
+- Python 3.10+
+- Flask
+- Flask-SQLAlchemy
+- SQLite
+- AWS S3 (via boto3)
+- Pytest
+
 ## Como Usar (Windows)
 
 1. Clone o repositório: `git clone https://github.com/GabrielAlves/MediaManagerAPI`
@@ -23,25 +32,3 @@
 7. Edite as variáveis do arquivo .env
 8. Execute a aplicação: `python run.py`
 9. Acesse a API em `http://localhost:5000`
-
-
-## 🚀 Tecnologias Utilizadas
-
-- Python 3.10+
-- Flask
-- Flask-SQLAlchemy
-- SQLite
-- AWS S3 (via boto3)
-- Pytest
-
----
-
-
-
----
-
-## 🔐 Autenticação
-
-A API utiliza autenticação via API Key.
-
-É necessário enviar a chave no header da requisição:
