@@ -11,4 +11,4 @@ class Config:
 
     API_KEY = os.getenv("API_KEY")
 
-    STORAGE_MODE = os.getenv("STORAGE_MODE", "local")  
+    STORAGE_MODE = os.getenv("STORAGE_MODE", "local")  # "local" or "s3"
