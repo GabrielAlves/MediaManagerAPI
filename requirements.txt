@@ -3,5 +3,3 @@ flask_sqlalchemy
 boto3
 python-dotenv
 pytest
-requests
-pyJWT
