@@ -25,7 +25,6 @@ def upload():
         return jsonify({"error": "Empty filename"}), 400
 
     file_extension = os.path.splitext(file.filename)[1].lower()
-    safe_name = file.filename.replace("/", "_").replace("\\", "_")
     unique_name = f"{uuid.uuid4().hex}{file_extension}"
     file.filename = unique_name
 
