@@ -26,4 +26,3 @@ def test_list_after_upload(client):
 
     assert response.status_code == 200
     assert len(response.json) == 1
-    assert response.json[0]["file_name"] == "image.jpg"

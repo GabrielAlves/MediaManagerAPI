@@ -1,10 +1,9 @@
 import os
 import boto3
+from botocore.exceptions import BotoCoreError, ClientError
 from flask import current_app
 
-local_storage_folder_name = "uploads"
-
-# TODO: Raise exceptinos for any other storage mode that is not local nor s3
+local_storage_folder_name = "uploads/"
 
 def upload_file(file):
     if current_app.config["STORAGE_MODE"] == "local":
@@ -20,14 +19,20 @@ def upload_file(file):
             aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"],
             region_name=current_app.config["AWS_REGION"],
         )
+        try:
+            s3.upload_fileobj(
+                file,
+                current_app.config["AWS_BUCKET"],
+                file.filename
+            )
 
-        s3.upload_fileobj(
-            file,
-            current_app.config["AWS_BUCKET"],
-            file.filename
-        )
+            return f"https://{current_app.config['AWS_BUCKET']}.s3.{current_app.config['AWS_REGION']}.amazonaws.com/{file.filename}"
+        
+        except (BotoCoreError, ClientError) as e:
+            raise Exception(f"S3 upload failed: {str(e)}")
 
-        return f"https://{current_app.config['AWS_BUCKET']}.s3.amazonaws.com/{file.filename}"
+    else:
+        raise ValueError("Invalid STORAGE_MODE. Use 'local' or 's3'.")
 
 def delete_file(filename):
     if current_app.config["STORAGE_MODE"] == "local":
@@ -42,7 +47,15 @@ def delete_file(filename):
             aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"],
             region_name=current_app.config["AWS_REGION"],
         )
-        s3.delete_object(
-            Bucket=current_app.config["AWS_BUCKET"],
-            Key=filename
-        )
+
+        try:
+            s3.delete_object(
+                Bucket=current_app.config["AWS_BUCKET"],
+                Key=filename
+            )
+        
+        except (BotoCoreError, ClientError) as e:
+            raise Exception(f"S3 delete failed : {str(e)}")
+
+    else:
+        raise ValueError("Invalid STORAGE_MODE. Use 'local' or 's3'.")
