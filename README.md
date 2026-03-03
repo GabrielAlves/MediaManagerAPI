@@ -12,7 +12,7 @@
 - Modo alternativo de armazenamento local
 - Testes unitários
 
-## Tecnologias Utilizadas
+## Tecnologias utilizadas
 
 - Python 3.10+
 - Flask
@@ -21,7 +21,7 @@
 - AWS S3 (via boto3)
 - Pytest
 
-## Como Usar (Windows)
+## Como usar (Instruções para windows)
 
 1. Clone o repositório: `git clone https://github.com/GabrielAlves/MediaManagerAPI`
 2. Entre no diretório: `cd MediaManagerAPI`
@@ -30,5 +30,16 @@
 5. Instale as dependências: `pip install -r requirements.txt`
 6. Copie o arquivo env de exemplo para o diretório app: `copy .env.example "app/.env"`
 7. Edite as variáveis do arquivo .env
-8. Execute a aplicação: `python run.py`
-9. Acesse a API em `http://localhost:5000`
+9. Execute a aplicação: `python run.py`
+10. Acesse a API em `http://localhost:5000`
+
+## Como configurar o S3 (caso desejado)
+
+1. Crie um bucket no Amazon s3
+2. Crie um usuário IAM com permissão ao S3
+3. Insira as credenciais da AWS no .env
+4. Altere `STORAGE_MODE=local` para `STORAGE_MODE=s3`
+
+## Como executar os testes unitários
+
+Execute: `python -m pytest`
